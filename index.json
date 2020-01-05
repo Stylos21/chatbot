@@ -26,12 +26,6 @@
              "responses": ["I am a bot created by @Imaginary Number#7739.", "I think I'm a bot", "I am either a person, or a thing."]
          },
          {
-             "id": "skills",
-             "patterns": ["What can you do?", "What are your commands?", "help", "start", "support"],
-             "responses": ["Currently, Joshua II is in beta, and the developer will add some more stuff to this bot. Post some ideas in #meta!"]
-
-         },
-         {
              "id": "hobbies",
              "patterns": ["What are your hobbies?", "What do you do?", "Do you have any interests?"],
              "responses": ["I like playing basketball, and I can clap you.", "Yes, I have hobbies."]
