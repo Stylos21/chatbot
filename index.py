@@ -9,9 +9,17 @@ import json
 import numpy as np   
 xs = []
 ys = []
+output = []
 with open('index.json') as f:
     
     f = json.load(f)
+    print(len(f['intents']))
+    for i in range(len(f["intents"])):
+
+        output = [[0 for _ in range(len(f["intents"]))]] * 6
+        print(output[i][i])
+        output[i][i] = 1
+    print(output)
     for intent in f["intents"]:
         ys.append(intent['id'].lower())
         # for tag in intent["id"]:
@@ -42,13 +50,13 @@ for i, c in enumerate(sorted(xs)):
         else:
             xs_train[word] = 0
 
-for i,c in enumerate(ys):
-    for word in range(len(ys)):
-        if ys[word] in c:
-            ys_train[word] = i / 7            
+# for i,c in enumerate(ys):
+#     for word in range(len(ys)):
+#         if ys[word] in c:
+#             ys_train[word] = i / 6            
 print(len(xs_train), len(ys_train))
 xs_train = np.array([xs_train])
-ys_train = np.array([ys_train])
+ys_train = np.array(output)
 # ys_train.reshape((-1, 7))
 
 print(xs_train.shape, ys_train.shape)
@@ -56,11 +64,11 @@ tf.reset_default_graph()
 net = tflearn.input_data(shape=[None, len(xs_train[0])])
 net = tflearn.fully_connected(net, 64, activation="softmax")
 net = tflearn.fully_connected(net, 64, activation="softmax")
-net = tflearn.fully_connected(net, 7, activation="sigmoid")
+net = tflearn.fully_connected(net, len(ys_train[0]), activation="softmax")
 net = tflearn.regression(net)
 model = tflearn.DNN(net)
 model.fit(xs_train, ys_train, n_epoch=10000)
-
+model.save('index.model')
 # model.load('index.model')
 def predict(words, vocab):
     words = word_tokenize(words)
@@ -73,7 +81,7 @@ def predict(words, vocab):
 
     return np.array([arr])
 
-prediction = model.predict(predict("la", xs))
+prediction = model.predict(predict("hello son", xs))
 res = np.argmax([prediction])
 with open('index.json') as f:
     f = json.load(f)
@@ -82,7 +90,6 @@ with open('index.json') as f:
     print(random.choice(responses))
 
 
-print(f"{ys[np.argmax([prediction])], prediction[0][res]}")
 
 
 
