@@ -16,14 +16,13 @@ with open('index.json') as f:
             ys.append(intent['id'])
             if intent['id'] not in labels:
                 labels.append(intent['id'])
-        
         for i in intent['patterns']:
             split = i.split(' ')
             xs.append(split)
 
             for word in split:
                 if word not in vocab:
-                    vocab.append(word)       
+                    vocab.append(word)
 train_labels = []
 for label in ys:
     l = [0 for _ in range(len(labels))]
