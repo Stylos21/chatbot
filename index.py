@@ -1,5 +1,5 @@
 import json
-import tflearn 
+import tflearn
 from random import randrange
 import numpy as np
 xs = []
