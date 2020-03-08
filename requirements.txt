@@ -12,15 +12,10 @@ Pillow==7.0.0
 pkg-resources==0.0.0
 protobuf==3.11.3
 six==1.14.0
-<<<<<<< HEAD
 tensorboard==1.14.0
 tensorflow==1.14.0
 tensorflow-estimator==1.14.0
 termcolor==1.1.0
-=======
-tensorflow==1.15.2
-tensorflow-tensorboard==1.5.1
->>>>>>> upstream/master
 tflearn==0.3.2
 Werkzeug==1.0.0
 wrapt==1.12.0
