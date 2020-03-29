@@ -13,7 +13,7 @@
         {
             "id": "age",
             "patterns": ["How many years has your developer lived?", "How old are you?", "What is the age of yourself sir?"],
-            "responses": ["I am 13 years old!", "13.", "Myself? 13 years old!"]
+            "responses": ["I am 1 years old!", "1.", "Myself? 1 years old!"]
         },
          {
              "id":"howareyou",
