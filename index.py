@@ -1,5 +1,6 @@
 import json
-import tflearn
+import tensorflow as tf	
+from tensorflow import keras 
 from random import randrange
 import numpy as np
 xs = []
@@ -34,14 +35,25 @@ for x in xs:
         if word in vocab:
             a[vocab.index(word)] = 1
     new_xs.append(a)
+
 new_xs = np.array(new_xs)
-net = tflearn.input_data(shape=[None, len(new_xs[0])])
-net = tflearn.fully_connected(net, 64, activation="relu")
-net = tflearn.fully_connected(net, 64, activation="relu")
-net = tflearn.fully_connected(net, len(labels), activation="softmax")
-net = tflearn.regression(net)
-model = tflearn.DNN(net)
-model.fit(new_xs, train_labels, n_epoch=1000, show_metric=True)
+train_labels = np.array(train_labels)
+
+model = tf.keras.Sequential()	
+
+model.add(tf.keras.layers.InputLayer(input_shape=(len(new_xs[0]))))	
+model.add(tf.keras.layers.Dense(64, activation="relu"))	
+model.add(tf.keras.layers.Dense(64, activation="relu"))
+model.add(tf.keras.layers.Dense(len(labels), activation="softmax"))
+	
+def train():
+    model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])	  
+    model.fit(new_xs, train_labels, epochs=1000, batch_size=256)	  
+    model.save('model.h5')
+
+train()
+
+
 
 def chat():
     while True:
